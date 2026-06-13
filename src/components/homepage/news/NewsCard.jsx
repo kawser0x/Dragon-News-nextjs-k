@@ -1,26 +1,12 @@
-import { getNewsDetailsById } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { BsArrowRight } from "react-icons/bs";
-import { CiBookmark, CiShare2 } from "react-icons/ci";
+import { CiBookmark, CiShare2, CiStar } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
 
-export const generateMetadata = async ({ params }) => {
-  const { id } = await params;
-  const news = await getNewsDetailsById(id);
-
-  return {
-    title: news.title,
-    description: news.details,
-  };
-};
-const NewsDetailsPage = async ({ params }) => {
-  const { id } = await params;
-  const news = await getNewsDetailsById(id);
+const NewsCard = ({ news }) => {
   return (
-    <div className="max-w-3xl mx-auto">
+    <div>
       <div className="card bg-base-100 shadow-sm">
         <div className="card-body">
           <div className="flex justify-between">
@@ -53,7 +39,7 @@ const NewsDetailsPage = async ({ params }) => {
             />
           </figure>
 
-          <p className="">{news.details}</p>
+          <p className="line-clamp-3">{news.details}</p>
 
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
@@ -66,10 +52,8 @@ const NewsDetailsPage = async ({ params }) => {
                 {news.total_view}
               </h2>
             </div>
-            <Link href={`/catagory/${news.category_id}`}>
-              <button className="btn bg bg-purple-500 text-white">
-                All news in this Catagory <BsArrowRight />{" "}
-              </button>
+            <Link href={`/news/${news._id}`}>
+              <button className="btn">Read More</button>
             </Link>
           </div>
         </div>
@@ -78,4 +62,4 @@ const NewsDetailsPage = async ({ params }) => {
   );
 };
 
-export default NewsDetailsPage;
+export default NewsCard;
