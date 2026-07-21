@@ -22,7 +22,13 @@ const LogInPage = () => {
       rememberMe: true,
       callbackURL: "/",
     });
-    console.log(res, error);
+    if (error) {
+      alert(error.message);
+    }
+    if (res) {
+      alert("Login successful");
+      router.push("/");
+    }
   };
 
   return (
